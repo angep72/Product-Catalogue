@@ -1,3 +1,5 @@
+// The Product class represents a product in  system.
+
 class Product {
   final String name;
   final String imageUrl;
