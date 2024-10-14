@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-// ignore: depend_on_referenced_packages
 import 'package:get/get.dart';
 import 'theme.dart';
 import 'product.dart';
 
+// Entry point of the application
 void main() {
   runApp(MyApp());
 }
 
+// Root widget of the application
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -20,15 +21,16 @@ class MyApp extends StatelessWidget {
   }
 }
 
+// Stateful widget for the catalog page
 class CatalogPage extends StatefulWidget {
   const CatalogPage({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _CatalogPageState createState() => _CatalogPageState();
 }
 
 class _CatalogPageState extends State<CatalogPage> {
+  // List of products to display in the catalog
   final List<Product> products = [
     Product(name: 'Product 1', imageUrl: 'https://picsum.photos/200', price: 19.99),
     Product(name: 'Product 2', imageUrl: 'https://picsum.photos/201', price: 29.99),
@@ -38,6 +40,7 @@ class _CatalogPageState extends State<CatalogPage> {
     // Add more products as needed
   ];
 
+  // State variable to track dark mode
   bool isDarkMode = false;
 
   @override
@@ -46,17 +49,19 @@ class _CatalogPageState extends State<CatalogPage> {
       appBar: AppBar(
         title: const Text('My Store'),
         actions: [
+          // Theme toggle button
           IconButton(
             icon: Icon(isDarkMode ? Icons.dark_mode : Icons.light_mode),
             onPressed: () {
               setState(() {
                 isDarkMode = !isDarkMode;
-                Get.changeThemeMode(isDarkMode ? ThemeMode.light :  ThemeMode.dark);
+                Get.changeThemeMode(isDarkMode ? ThemeMode.light : ThemeMode.dark);
               });
             },
           ),
         ],
       ),
+      // Grid view to display products
       body: GridView.builder(
         padding: const EdgeInsets.all(16),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -78,6 +83,7 @@ class _CatalogPageState extends State<CatalogPage> {
   }
 }
 
+// Widget to display individual product cards
 class ProductCard extends StatelessWidget {
   final Product product;
 
@@ -86,6 +92,7 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      // Show dialog when tapping on a product
       onTap: () {
         showDialog(
           context: context,
@@ -106,12 +113,14 @@ class ProductCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Product image
             Expanded(
               child: Image.network(
                 product.imageUrl,
                 fit: BoxFit.cover,
               ),
             ),
+            // Product details
             Padding(
               padding: EdgeInsets.all(8),
               child: Column(
